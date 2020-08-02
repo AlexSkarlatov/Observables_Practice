@@ -20,10 +20,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     // this.firstObsSubscription =   interval(1000).subscribe(count => {
     //   console.log(count);
     // });
-      const customObservable = Observable.create();
+
+    //know that to create an observable object it must have as a field a defiened observer
+    //method to share to its subscribers
+      const customObservable = Observable.create(observer => {
+        let count = 0;
+          setInterval( () => {
+            observer.next(count);
+            count++;
+          }, 1000 );
+      });
+
+      this.firstObsSubscription =  customObservable.subscribe(data => {
+        console.log(data);
+      });
   }
   ngOnDestroy(): void{
-    this.firstObsSubscription.unsubscribe();
+    this.firstObsSubscription.unsubscribe( );
 
     //legend has it , the obeservable is still emitting data to this day , but no object is subscribed to id
   }
