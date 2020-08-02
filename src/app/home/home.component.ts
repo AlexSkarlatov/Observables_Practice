@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     //know that to create an observable object it must have as a field a defiened observer
     //method to share to its subscribers
+    //observable decides how these functions are called
       const customObservable = Observable.create(observer => {
         let count = 0;
           setInterval( () => {
@@ -37,6 +38,9 @@ export class HomeComponent implements OnInit, OnDestroy {
           }, 1000 );
       });
 
+
+
+//set up the 3 difft handler functions
       this.firstObsSubscription =  customObservable.subscribe(data => {
         console.log(data);
       },
@@ -45,6 +49,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         //send it to backend database
         //set alert for User
         alert(e);
+      }, () => {
+        console.log('completed!');
       }
     );
   }
