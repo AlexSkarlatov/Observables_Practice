@@ -46,7 +46,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       // }));
 //fun with operators
 //set up the 3 difft handler functions
-      this.firstObsSubscription =  customObservable.pipe(map((data: number) =>{
+      this.firstObsSubscription =  customObservable.pipe(filter((data) => {
+        return data > 0;
+        //filter prevents upon false from continueing to the next method or the next step in t the observer process after
+        //performing some logic  on the data emitted by observable
+      }),map((data: number) =>{
         return 'round:  ' + (data + 1);
       })).subscribe(data => {
         console.log(data);
