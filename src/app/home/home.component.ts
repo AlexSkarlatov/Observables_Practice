@@ -3,6 +3,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 //istep 1 import rxjs
 import { interval , Subscription, Observable} from "rxjs";
 
+//learning about oberators
+import { map, filter } from "rxjs/operators";
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -38,10 +41,14 @@ export class HomeComponent implements OnInit, OnDestroy {
           }, 1000 );
       });
 
-
-
+      // customObservable.pipe(map((data: number) =>{
+      //   return 'round:  ' + (data + 1);
+      // }));
+//fun with operators
 //set up the 3 difft handler functions
-      this.firstObsSubscription =  customObservable.subscribe(data => {
+      this.firstObsSubscription =  customObservable.pipe(map((data: number) =>{
+        return 'round:  ' + (data + 1);
+      })).subscribe(data => {
         console.log(data);
       },
       e => {
